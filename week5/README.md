@@ -11,7 +11,11 @@
  **[Predict.py](https://github.com/isse75/ML_Zoomcamp/blob/main/week5/predict.py) Python File**
  - Running model on a new customer and seeing the predicted outcome
 
-
 [**Ping.py Python File**](https://github.com/isse75/ML_Zoomcamp/blob/main/week5/ping.py)
 Intro to Flask: Running a function on a web service (locally hosted) using Flask
 
+
+📣 **KEY COMMAND TO RUN IN TERMINAL TO USE PRODUCTION SERVER** 
+```
+gunicorn --bind 0.0.0.0:9696 predict:app
+```
