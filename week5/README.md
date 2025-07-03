@@ -19,3 +19,16 @@ Intro to Flask: Running a function on a web service (locally hosted) using Flask
 ```
 gunicorn --bind 0.0.0.0:9696 predict:app
 ```
+
+**Pipfile Documents**
+- Contains specific requirements required to run python project
+
+:whale:**[Docker File](https://github.com/isse75/ML_Zoomcamp/blob/main/week5/Dockerfile)**
+- Contains Settings Dependencies and commands required to run the project.
+- Use the following commands in command line to run the Docker Container.
+  
+```
+docker build -t zoomcamp-test .
+docker run -it --rm -p 9696:9696 zoomcamp-test
+```
+
