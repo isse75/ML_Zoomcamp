@@ -10,11 +10,9 @@ st.set_page_config(
 )
 
 st.title("❤️ Heart Disease Risk Predictor")
-
-# Sidebar or main inputs
 st.header("Patient Data")
 
-# Descriptive mappings
+# Descriptive mappings for categorical variables
 cp_map = {
     "Typical Angina": 0,
     "Atypical Angina": 1,
@@ -34,43 +32,48 @@ thal_map = {
     "Reversible Defect": 3
 }
 
-Age = st.number_input("Age", min_value=1, max_value=120, value=50)
-Sex = st.selectbox("Sex", ["Male", "Female"])
-ChestPainType_label = st.selectbox("Chest Pain Type", list(cp_map.keys()))
-RestingBP = st.number_input("Resting Blood Pressure (mm Hg)", min_value=50, max_value=250, value=120)
-Cholesterol = st.number_input("Cholesterol (mg/dl)", min_value=50, max_value=600, value=200)
-FastingBS_label = st.selectbox("Fasting Blood Sugar > 120 mg/dl", ["No", "Yes"])
-RestingECG_label = st.selectbox("Resting ECG Result", list(ecg_map.keys()))
-MaxHR = st.number_input("Maximum Heart Rate Achieved", min_value=50, max_value=250, value=150)
-ExerciseAngina_label = st.selectbox("Exercise-Induced Angina", ["No", "Yes"])
-Oldpeak = st.number_input("ST Depression (Oldpeak)", format="%.1f", value=1.0)
-ST_Slope = st.selectbox("ST Slope", [0, 1, 2])
-Ca = st.selectbox("Number of Major Vessels (0–3)", [0, 1, 2, 3])
-Thal_label = st.selectbox("Thalassemia", list(thal_map.keys()))
+# Input fields
+age = st.number_input("Age", min_value=1, max_value=120, value=50)
+sex = st.selectbox("Sex", ["Male", "Female"])
+chest_pain_type_label = st.selectbox("Chest Pain Type", list(cp_map.keys()))
+resting_bp = st.number_input("Resting Blood Pressure (mm Hg)", min_value=50, max_value=250, value=120)
+cholesterol = st.number_input("Cholesterol (mg/dl)", min_value=50, max_value=600, value=200)
+fasting_blood_sugar_label = st.selectbox("Fasting Blood Sugar > 120 mg/dl", ["No", "Yes"])
+resting_ecg_label = st.selectbox("Resting ECG Result", list(ecg_map.keys()))
+max_hr_achieved = st.number_input("Maximum Heart Rate Achieved", min_value=50, max_value=250, value=150)
+exercise_angina_label = st.selectbox("Exercise-Induced Angina", ["No", "Yes"])
+st_depression = st.number_input("ST Depression (Oldpeak)", format="%.1f", value=1.0)
+st_slope = st.selectbox("ST Slope", [0, 1, 2])
+no_vessels_fluoroscopy = st.selectbox("Number of Major Vessels (0–3)", [0, 1, 2, 3])
+thal_result_label = st.selectbox("Thalassemia", list(thal_map.keys()))
 
+# Button to make prediction
 if st.button("Predict Heart Disease Risk"):
     payload = {
-        "Age": Age,
-        "Sex": 1 if Sex == "Male" else 0,
-        "ChestPainType": cp_map[ChestPainType_label],
-        "RestingBP": RestingBP,
-        "Cholesterol": Cholesterol,
-        "FastingBS": True if FastingBS_label == "Yes" else False,
-        "RestingECG": ecg_map[RestingECG_label],
-        "MaxHR": MaxHR,
-        "ExerciseAngina": True if ExerciseAngina_label == "Yes" else False,
-        "Oldpeak": Oldpeak,
-        "ST_Slope": ST_Slope,
-        "Ca": Ca,
-        "Thal": thal_map[Thal_label]
+        "age": age,
+        "sex": 1 if sex == "Male" else 0,
+        "chest_pain_type": cp_map[chest_pain_type_label],
+        "resting_bp": resting_bp,
+        "cholesterol": cholesterol,
+        "fasting_blood_sugar": True if fasting_blood_sugar_label == "Yes" else False,
+        "resting_ecg": ecg_map[resting_ecg_label],
+        "max_hr_achieved": max_hr_achieved,
+        "exercise_angina": True if exercise_angina_label == "Yes" else False,
+        "st_depression": st_depression,
+        "st_slope": st_slope,
+        "no_vessels_fluoroscopy": no_vessels_fluoroscopy,
+        "thal_result": thal_map[thal_result_label]
     }
+
     try:
         resp = requests.post(f"{API_URL}/predict", json=payload, timeout=10)
         resp.raise_for_status()
         result = resp.json().get("heart_disease")
+
         if result:
             st.error("Prediction: High risk of heart disease")
         else:
             st.success("Prediction: Low risk of heart disease")
+
     except Exception as e:
         st.error(f"API call failed: {e}")
