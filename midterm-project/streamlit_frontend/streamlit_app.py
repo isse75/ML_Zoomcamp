@@ -48,30 +48,29 @@ ST_Slope = st.selectbox("ST Slope", [0, 1, 2])
 Ca = st.selectbox("Number of Major Vessels (0–3)", [0, 1, 2, 3])
 Thal_label = st.selectbox("Thalassemia", list(thal_map.keys()))
 
-# Predict button
 if st.button("Predict Heart Disease Risk"):
     payload = {
         "Age": Age,
         "Sex": 1 if Sex == "Male" else 0,
-        "ChestPainType": ChestPainType,
+        "ChestPainType": cp_map[ChestPainType_label],
         "RestingBP": RestingBP,
         "Cholesterol": Cholesterol,
-        "FastingBS": FastingBS,
-        "RestingECG": RestingECG,
+        "FastingBS": True if FastingBS_label == "Yes" else False,
+        "RestingECG": ecg_map[RestingECG_label],
         "MaxHR": MaxHR,
-        "ExerciseAngina": ExerciseAngina,
+        "ExerciseAngina": True if ExerciseAngina_label == "Yes" else False,
         "Oldpeak": Oldpeak,
         "ST_Slope": ST_Slope,
         "Ca": Ca,
-        "Thal": Thal
+        "Thal": thal_map[Thal_label]
     }
     try:
         resp = requests.post(f"{API_URL}/predict", json=payload, timeout=10)
         resp.raise_for_status()
         result = resp.json().get("heart_disease")
         if result:
-            st.error("Prediction: High risk of heart disease ❤️")
+            st.error("Prediction: High risk of heart disease")
         else:
-            st.success("Prediction: Low risk of heart disease 👍")
+            st.success("Prediction: Low risk of heart disease")
     except Exception as e:
         st.error(f"API call failed: {e}")
