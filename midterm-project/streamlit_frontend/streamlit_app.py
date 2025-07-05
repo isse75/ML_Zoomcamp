@@ -13,15 +13,37 @@ st.title("❤️ Heart Disease Risk Predictor")
 
 # Sidebar or main inputs
 st.header("Patient Data")
+
+
+# Descriptive mappings
+cp_map = {
+    "Typical Angina": 0,
+    "Atypical Angina": 1,
+    "Non-anginal Pain": 2,
+    "Asymptomatic": 3
+}
+
+ecg_map = {
+    "Normal": 0,
+    "ST-T Wave Abnormality": 1,
+    "Left Ventricular Hypertrophy": 2
+}
+
+thal_map = {
+    "Normal": 1,
+    "Fixed Defect": 2,
+    "Reversible Defect": 3
+}
+
 Age = st.number_input("Age", min_value=1, max_value=120, value=50)
 Sex = st.selectbox("Sex", ["Male", "Female"])
 ChestPainType = st.selectbox("Chest Pain Type", [0, 1, 2, 3])
 RestingBP = st.number_input("Resting Blood Pressure", min_value=50, max_value=250, value=120)
 Cholesterol = st.number_input("Cholesterol", min_value=50, max_value=600, value=200)
-FastingBS = st.selectbox("Fasting Blood Sugar > 120 mg/dl", [0, 1])
+FastingBS = st.selectbox("Fasting Blood Sugar > 120 mg/dl", ["No", "Yes"])
 RestingECG = st.selectbox("Resting ECG Result", [0, 1, 2])
 MaxHR = st.number_input("Maximum Heart Rate Achieved", min_value=50, max_value=250, value=150)
-ExerciseAngina = st.selectbox("Exercise-Induced Angina", [0, 1])
+ExerciseAngina = st.selectbox("Exercise-Induced Angina", ["No", "Yes"])
 Oldpeak = st.number_input("ST Depression (Oldpeak)", format="%.1f", value=1.0)
 ST_Slope = st.selectbox("ST Slope", [0, 1, 2])
 Ca = st.selectbox("Number of Major Vessels (0–3)", [0, 1, 2, 3])
