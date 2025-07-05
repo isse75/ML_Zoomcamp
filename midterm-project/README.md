@@ -74,22 +74,7 @@ The dataset includes critical medical indicators:
 ## Project Structure
 
 ```
-heart-disease-predictor/
-├── app/                          # Flask API and Docker deployment
-│   ├── app.py                   # Flask application
-│   ├── model.pkl                # Trained ML model
-│   └── Dockerfile               # Container configuration
-├── streamlit_app/               # Interactive web interface
-│   ├── streamlit_app.py         # Main application
-│   └── requirements.txt         # Dependencies
-├── notebooks/                   # Analysis and training notebooks
-│   ├── 01_EDA.ipynb            # Exploratory data analysis
-│   └── 02_Model_Training.ipynb  # Model development
-├── data/                        # Dataset files
-│   └── heart_disease.csv        # Raw data
-├── Pipfile                      # Project dependencies
-├── Pipfile.lock                 # Dependency versions
-└── README.md                    # Project documentation
+TBD
 ```
 
 ## Setup and Installation
@@ -127,15 +112,15 @@ heart-disease-predictor/
 
 **Quick Start:**
 ```bash
-docker pull your_docker_username/heart-disease-api:latest
-docker run -p 5000:5000 your_docker_username/heart-disease-api:latest
+docker pull issedugou/heart_disease:latest
+docker run -p 9696:9696 your_docker_username/heart_disease:latest
 ```
 
 **Build from source:**
 ```bash
 cd app/
 docker build -t heart-disease-api .
-docker run -p 5000:5000 heart-disease-api
+docker run -p 9696:9696 heart-disease-api
 ```
 
 ### Streamlit Application
@@ -145,11 +130,11 @@ cd streamlit_app/
 streamlit run streamlit_app.py
 ```
 
-Access the app at `http://localhost:8501`
+Access the app at `[http://localhost:8501](https://heart-disease-predictor-75.streamlit.app/)`
 
 ## Exploratory Data Analysis
 
-The EDA process (`01_EDA.ipynb`) reveals key insights about the dataset:
+The EDA process (`notebook.ipynb`) reveals key insights about the dataset:
 
 ### Dataset Overview and Correlations
 
