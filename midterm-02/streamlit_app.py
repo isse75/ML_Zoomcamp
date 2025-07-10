@@ -38,7 +38,9 @@ with col1:
         "primary", "secondary", "tertiary", "unknown"
     ])
     
-    balance = st.number_input("Account Balance (€)", value=1000, step=100)
+    default = st.selectbox("Has Credit in Default?", ["yes", "no"])
+    
+    previous = st.number_input("Number of Previous Contacts", min_value=0, value=0)
 
 with col2:
     st.header("Contact Information")
@@ -46,23 +48,39 @@ with col2:
     housing = st.selectbox("Housing Loan?", ["yes", "no"])
     loan = st.selectbox("Personal Loan?", ["yes", "no"])
     contact = st.selectbox("Contact Type", ["cellular", "telephone", "unknown"])
-    duration = st.number_input("Last Contact Duration (seconds)", min_value=0, value=300)
+    
+    month = st.selectbox("Last Contact Month", [
+        "jan", "feb", "mar", "apr", "may", "jun",
+        "jul", "aug", "sep", "oct", "nov", "dec"
+    ])
+    
+    day_of_week = st.selectbox("Last Contact Day of Week", [
+        "mon", "tue", "wed", "thu", "fri"
+    ])
+    
+    poutcome = st.selectbox("Previous Campaign Outcome", [
+        "failure", "nonexistent", "success"
+    ])
+    
     campaign = st.number_input("Number of Contacts This Campaign", min_value=1, value=2)
 
 # Prediction button
 if st.button("🔮 Predict Deposit Decision", type="primary"):
-    # Prepare data for API
+    # Prepare data for API - EXACTLY match training features
     customer_data = {
         "age": age,
         "job": job,
         "marital": marital,
         "education": education,
-        "balance": balance,
+        "default": default,
         "housing": housing,
         "loan": loan,
         "contact": contact,
-        "duration": duration,
-        "campaign": campaign
+        "month": month,
+        "day_of_week": day_of_week,
+        "campaign": campaign,
+        "previous": previous,
+        "poutcome": poutcome
     }
     
     try:
@@ -128,7 +146,7 @@ This app predicts whether a bank customer will subscribe to a term deposit based
 
 st.sidebar.header("API Status")
 try:
-    health_response = requests.get(f"http://34.248.88.252:9696/predict")
+    health_response = requests.get("http://34.248.88.252:9696/")
     if health_response.status_code == 200:
         st.sidebar.success("✅ API Online")
     else:
