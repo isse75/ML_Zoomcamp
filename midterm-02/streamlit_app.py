@@ -128,7 +128,7 @@ This app predicts whether a bank customer will subscribe to a term deposit based
 
 st.sidebar.header("API Status")
 try:
-    health_response = requests.get(f"http://YOUR-EC2-PUBLIC-IP:9696/")
+    health_response = requests.get(f"http://34.248.88.252:9696/predict")
     if health_response.status_code == 200:
         st.sidebar.success("✅ API Online")
     else:
