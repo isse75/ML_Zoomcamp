@@ -130,7 +130,7 @@ cd streamlit_app/
 streamlit run streamlit_app.py
 ```
 
-Access the app at `[http://localhost:8501](https://heart-disease-predictor-75.streamlit.app/)`
+Access the app at `[[http://localhost:8501](https://heart-disease-predictor-75.streamlit.app/](https://heart-disease-predictor-75.streamlit.app/))`
 
 ## Exploratory Data Analysis
 
@@ -182,33 +182,20 @@ The correlation analysis reveals important feature relationships that guide our 
 ### Methodology
 
 **Data Splitting**
-- 80% training, 20% testing split
-- 25% of training data held out for validation
-- Stratified sampling to maintain class balance
+- 60/20/20 split - Training/Validation/Testing 
 
 **Feature Engineering**
-- DictVectorizer for automatic encoding
-- One-hot encoding for categorical variables
+- DictVectorizer to perform One-Hot Encoding on Categorical Variables
 - Numerical features used directly
 
 **Model Selection**
 - 5-fold cross-validation for robust evaluation
-- Logistic Regression chosen for interpretability
-- Hyperparameter tuning using grid search
+- Hyperparameter Tuning to find the Optimal Logistic Regression Function
 
 **Hyperparameter Optimisation**
 - Tested regularisation parameter C: [0.001, 0.01, 0.1, 1, 10, 100, 1000]
 - Selected C=1.0 based on highest mean AUC
 - Used AUC as primary metric for model comparison
-
-![Model Comparison](images/model_comparison.png)
-
-*Performance comparison across different algorithms and hyperparameters*
-
-### Final Model Performance
-- **Algorithm**: Logistic Regression (C=1.0)
-- **Training**: Full training set (80% of data)
-- **Evaluation**: Hold-out test set (20% of data)
 
 ![ROC Curve](images/roc_curve.png)
 
@@ -227,12 +214,12 @@ The correlation analysis reveals important feature relationships that guide our 
 **Interactive Streamlit App**
 - User-friendly interface for heart disease prediction
 - Real-time predictions with probability scores
-- **URL**: [INSERT YOUR STREAMLIT APP URL]
+- **URL**: [https://heart-disease-predictor-75.streamlit.app/] 
 
 **REST API Service**
 - Flask-based API for programmatic access
 - Deployed on AWS Elastic Beanstalk
-- **Endpoint**: [INSERT YOUR API ENDPOINT]
+- **Endpoint**: [heart-disease-env.eba-smhahyek.eu-west-1.elasticbeanstalk.com]
 
 ### Containerisation
 
@@ -242,8 +229,8 @@ The correlation analysis reveals important feature relationships that guide our 
 - Reproducible builds and dependencies
 
 **Docker Image**
-- **Registry**: `[your_docker_username/heart-disease-api:latest]`
-- **Base Image**: Python 3.9-slim
+- **Registry**: `[issedugou/heart-disease-api:latest]`
+- **Base Image**: Python 3.12-slim
 - **Dependencies**: Automatically installed from requirements
 - **Port**: 5000 (Flask default)
 
@@ -256,11 +243,11 @@ The correlation analysis reveals important feature relationships that guide our 
 *Confusion matrix showing model predictions vs actual outcomes on test set*
 
 **Performance Metrics:**
-- **Accuracy**: [INSERT ACCURACY]%
-- **ROC AUC**: [INSERT AUC SCORE]
-- **Precision**: [INSERT PRECISION]
-- **Recall**: [INSERT RECALL]
-- **F1-Score**: [INSERT F1_SCORE]
+- **Accuracy**: [0.85]%
+- **ROC AUC**: [0.9222]
+- **Precision**: [0.83]
+- **Recall**: [0.91]
+- **F1-Score**: [0.87]
 
 ### Key Insights
 
@@ -268,7 +255,7 @@ The correlation analysis reveals important feature relationships that guide our 
 
 *Summary of clinical factors most predictive of heart disease*
 
-- **Most Important Features**: [List top 3-5 features from your model]
+- **Most Important Features**: Age, Resting Blood Pressure, Cholestrol
 - **Clinical Relevance**: The model identifies chest pain type, maximum heart rate achieved, and ST depression as primary indicators
 - **Deployment Success**: Fully containerised and cloud-deployed with 99.9% uptime
 
@@ -277,21 +264,6 @@ The correlation analysis reveals important feature relationships that guide our 
 - Reduces dependency on expensive diagnostic tests
 - Supports preventive healthcare initiatives
 - Provides interpretable predictions for medical professionals
-
-## Contributing
-
-Contributions are welcome! Please feel free to:
-- Report bugs or issues
-- Suggest new features or improvements
-- Submit pull requests
-- Improve documentation
-
-### Development Guidelines
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
